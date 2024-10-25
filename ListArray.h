@@ -50,7 +50,7 @@ class ListArray : public List<T> {
 			max /= 2;**/
  	}
 
-	void insert(int pos, T e) override{
+	/**void insert(int pos, T e) override{
 	}
 
 	void append(T e) override{
@@ -72,7 +72,7 @@ class ListArray : public List<T> {
 	}
 
 	int size() override{
-	}
+	}**/
 	
 };
 
