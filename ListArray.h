@@ -44,35 +44,95 @@ class ListArray : public List<T> {
 		arr = new_arr;
 		max = new_size;
 
-		/**if (n >= max -1){
-			max *= 2;
-		else (n <= (max/2)){
-			max /= 2;**/
+		
  	}
 
-	/**void insert(int pos, T e) override{
+	void insert(int pos, T e) override {
+		if (pos >=  n || pos < 0) {
+			throw std::out_of_range("Posicion fuera de rango");
+		} 
+	       
+		if (n == max) {
+			resize(max * 2);
+		}
+
+		for (int i = n; i > pos; i--) {
+			arr[i] = arr[i - 1];
+		}
+
+		arr[pos] = e;
+		n++;
+
+	} 
+
+
+	void append(T e) override {
+		 if (n == max) {
+			resize(max * 2);
+		 }
+
+		 arr[n] = e;
+		 n++;
 	}
 
-	void append(T e) override{
+	void prepend(T e) override {
+		 if (n == max) {
+			resize(max * 2);
+		 }
+
+		for (int i = n; i > 0; i--) {
+			arr[i] = arr[i - 1];
+		}
+
+		arr[0] = e;
+		n++;
 	}
 
-	void prepend(T e) override{
+	T remove(int pos) override {
+		if (pos < 0 || pos >=  n) {
+			throw std::out_of_range("Posicion fuera de rango.");
+		}
+			
+		T savePos = arr[pos];
+
+		for(int i = pos; i < n - 1; i++) {
+			arr[i] = arr[i + 1];
+		}
+
+		n--;
+
+		if (n <=  max / 4 && max > MINSIZE) {
+			resize(max / 2);
+		}
+		
+		return savePos;
 	}
 
-	T remove(int pos) override{
+	T get(int pos) override {
+		if (pos < 0 || pos >=  n) {
+			throw std::out_of_range("Posicion fuera de rango.");
+		}
+		return arr[pos];
 	}
 
-	T get(int pos) override{
+	int search(T e) override {
+		int i = 0;
+		while (arr[i] != e && i < n) {
+			i++;
+		}
+		if (i < n){
+			return (i < n) ? i : -1;
+		}
 	}
 
-	int search(T e) override{
+	bool empty() override {
+		if (n == 0)
+			return 0;
 	}
 
-	bool empty() override{
+	int size() override {
+		return n;
 	}
-
-	int size() override{
-	}**/
 	
 };
 
@@ -83,4 +143,4 @@ template <typename T>
 	   		out << list.arr[i] << std::endl;	       
 	       }
 	       return out;
- 	}   // miIembros públicos, incluidos los heredados de List<T
+ 	}   
