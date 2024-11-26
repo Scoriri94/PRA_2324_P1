@@ -125,9 +125,11 @@ class ListLinked : public List<T> {
 
 		Node<T>* current = first;
 		T saveData;
+		int cont = 0;
 
-		while (current->next < pos - 1) {
+		while (cont < pos) {
 			current = current->next;
+			cont++;
 		}
 		saveData = current->data;
 
@@ -136,18 +138,18 @@ class ListLinked : public List<T> {
 
 	int search(T e) override {
 		Node<T>* current = first;
-		int pos = 1;
+		int pos = 0;
 
-		while (current->data != e) {
+		while (current != nullptr && current->data != e) {
 			current = current->next;
 			pos++;
 		}
 
-		return pos;
+		return (current == nullptr) ? -1 : pos;
 	}	
 
 	bool empty() override {
-		return (first->next == nullptr);
+		return (first == nullptr);
 
 	}
 
